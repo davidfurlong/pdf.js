@@ -37,6 +37,7 @@ http://sourceforge.net/adobe/cmap/wiki/License/
 <!--#if !PRODUCTION-->
     <link rel="resource" type="application/l10n" href="locale/locale.properties"/>
 <!--#endif-->
+  <script type="text/javascript" src="writequestion.js"></script>
 
 <!--#if !(FIREFOX || MOZCENTRAL || CHROME || MINIFIED)-->
     <script type="text/javascript" src="compatibility.js"></script>
@@ -86,10 +87,12 @@ http://sourceforge.net/adobe/cmap/wiki/License/
 <!--#if !MINIFIED -->
     <script type="text/javascript" src="debugger.js"></script>
     <script type="text/javascript" src="viewer.js"></script>
+
+
+
 <!--#else-->
 <!--#include viewer-snippet-minified.html-->
 <!--#endif-->
-
   </head>
 
   <body tabindex="1">
@@ -213,6 +216,9 @@ http://sourceforge.net/adobe/cmap/wiki/License/
                 <span id="numPages" class="toolbarLabel"></span>
               </div>
               <div id="toolbarViewerRight">
+                <button id="questionstoggle" class="toolbarButton" style="width:150px" title="Toggle" tabindex="12" data-l10n-id="presentation_mode">
+                  Hide All Questions
+                </button>
                 <button id="presentationMode" class="toolbarButton presentationMode hiddenLargeView" title="Switch to Presentation Mode" tabindex="12" data-l10n-id="presentation_mode">
                   <span data-l10n-id="presentation_mode_label">Presentation Mode</span>
                 </button>
@@ -373,7 +379,6 @@ http://sourceforge.net/adobe/cmap/wiki/License/
           </div>
         </div>
       </div>  <!-- overlayContainer -->
-
     </div> <!-- outerContainer -->
     <div id="printContainer"></div>
 <!--#if !(FIREFOX || MOZCENTRAL)-->

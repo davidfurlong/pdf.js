@@ -23,7 +23,7 @@
 
 'use strict';
 
-var DEFAULT_URL = 'compressed.tracemonkey-pldi-09.pdf';
+var DEFAULT_URL = 'testpdf.pdf';
 var DEFAULT_SCALE = 'auto';
 var DEFAULT_SCALE_DELTA = 1.1;
 var UNKNOWN_SCALE = 0;
@@ -124,6 +124,7 @@ var PDFView = {
   isViewerEmbedded: (window.parent !== window),
   idleTimeout: null,
   currentPosition: null,
+  instantFeedback: true, 
 
   // called once when the document is loaded
   initialize: function pdfViewInitialize() {
@@ -845,6 +846,7 @@ var PDFView = {
     var onePageRendered = new Promise(function (resolve) {
       resolveOnePageRendered = resolve;
     });
+
     function bindOnAfterDraw(pageView, thumbnailView) {
       // when page is painted, using the image as thumbnail base
       pageView.onAfterDraw = function pdfViewLoadOnAfterDraw() {
@@ -993,6 +995,7 @@ var PDFView = {
 //      self.container.blur();
 //#endif
       }
+
     });
 
     pagesPromise.then(function() {
@@ -1162,6 +1165,7 @@ var PDFView = {
     PDFView.idleTimeout = setTimeout(function () {
       PDFView.cleanup();
     }, CLEANUP_TIMEOUT);
+
   },
 
   cleanup: function pdfViewCleanup() {
@@ -1210,17 +1214,20 @@ var PDFView = {
       }
     }
     // Everything that needs to be rendered has been.
+
     return false;
   },
 
   isViewFinished: function pdfViewIsViewFinished(view) {
-    return view.renderingState === RenderingStates.FINISHED;
+    return view.renderingState === RenderingStates.FINISHED
+
   },
 
   // Render a page or thumbnail view. This calls the appropriate function based
   // on the views state. If the view is already rendered it will return false.
   renderView: function pdfViewRender(view, type) {
     var state = view.renderingState;
+
     switch (state) {
       case RenderingStates.FINISHED:
         return false;

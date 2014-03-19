@@ -113,7 +113,7 @@ target.generic = function() {
       ['external/cmaps/', GENERIC_DIR + '/web/cmaps'],
       ['web/viewer.css', GENERIC_DIR + '/web'],
       ['web/compatibility.js', GENERIC_DIR + '/web'],
-      ['web/compressed.tracemonkey-pldi-09.pdf', GENERIC_DIR + '/web'],
+      ['web/testpdf.pdf', GENERIC_DIR + '/web'],
       ['web/locale', GENERIC_DIR + '/web']
     ],
     preprocess: [
@@ -432,7 +432,7 @@ target.minified = function() {
     copy: [
       [COMMON_WEB_FILES, MINIFIED_DIR + '/web'],
       ['web/viewer.css', MINIFIED_DIR + '/web'],
-      ['web/compressed.tracemonkey-pldi-09.pdf', MINIFIED_DIR + '/web'],
+      ['web/testpdf.pdf', MINIFIED_DIR + '/web'],
       ['web/locale', MINIFIED_DIR + '/web']
     ],
     preprocess: [

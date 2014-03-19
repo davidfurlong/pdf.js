@@ -46,10 +46,11 @@ var PageView = function pageView(container, id, scale,
   div.id = 'pageContainer' + this.id;
   div.className = 'page';
   div.style.width = Math.floor(this.viewport.width) + 'px';
-  div.style.height = Math.floor(this.viewport.height) + 'px';
-
+  div.style.height = Math.floor(this.viewport.height*(6/7)) + 'px';
+  console.log('pagecontainer'+Math.floor(this.viewport.width));
   container.appendChild(anchor);
   container.appendChild(div);
+
 
   this.setPdfPage = function pageViewSetPdfPage(pdfPage) {
     this.pdfPage = pdfPage;
@@ -98,6 +99,7 @@ var PageView = function pageView(container, id, scale,
   };
 
   this.update = function pageViewUpdate(scale, rotation) {
+
     this.scale = scale || this.scale;
 
     if (typeof rotation !== 'undefined') {
@@ -451,8 +453,10 @@ var PageView = function pageView(container, id, scale,
     // Wrap the canvas so if it has a css transform for highdpi the overflow
     // will be hidden in FF.
     var canvasWrapper = document.createElement('div');
-    canvasWrapper.style.width = div.style.width;
-    canvasWrapper.style.height = div.style.height;
+    canvasWrapper.style.width = Math.floor(viewport.width*(6/7)) + 'px';
+    canvasWrapper.style.height = div.style.height + 'px';
+    canvasWrapper.style.styleFloat = 'left';
+    canvasWrapper.style.cssFloat = 'left';
     canvasWrapper.classList.add('canvasWrapper');
 
     var canvas = document.createElement('canvas');
@@ -474,10 +478,11 @@ var PageView = function pageView(container, id, scale,
       outputScale.scaled = true;
     }
 
-    canvas.width = (Math.floor(viewport.width) * outputScale.sx) | 0;
+    canvas.width = (Math.floor(viewport.width)) | 0;
     canvas.height = (Math.floor(viewport.height) * outputScale.sy) | 0;
-    canvas.style.width = Math.floor(viewport.width) + 'px';
-    canvas.style.height = Math.floor(viewport.height) + 'px';
+    console.log('canvas'+Math.floor(viewport.width*(6/7)));
+    canvas.style.width = Math.floor(viewport.width*(6/7)) + 'px';
+    canvas.style.height = Math.floor(viewport.height*(6/7)) + 'px';
     // Add the viewport so it's known what it was originally drawn with.
     canvas._viewport = viewport;
 
@@ -485,10 +490,25 @@ var PageView = function pageView(container, id, scale,
     if (!PDFJS.disableTextLayer) {
       textLayerDiv = document.createElement('div');
       textLayerDiv.className = 'textLayer';
-      textLayerDiv.style.width = canvas.width + 'px';
-      textLayerDiv.style.height = canvas.height + 'px';
+      console.log('textLayerDiv'+Math.floor(viewport.width*(6/7)));
+      textLayerDiv.style.width = Math.floor(viewport.width*(6/7)) + 'px';
+      textLayerDiv.style.height = div.style.height + 'px';
       div.appendChild(textLayerDiv);
     }
+
+    // divinstant = div instant feedback
+    var divinstant = document.createElement('div');
+    divinstant.id = 'instantFeedback' + this.id;
+    divinstant.className = 'instant';
+    divinstant.style.styleFloat = 'right';
+    divinstant.style.cssFloat = 'right';
+    console.log('divinstant'+canvas.width*(1/7));
+    divinstant.style.width = canvas.width*(1/7)-4 + 'px';
+    divinstant.style.height = canvas.height*(6/7) + 'px';
+    div.appendChild(divinstant);
+
+    rerenderQuestions();
+ 
     var textLayer = this.textLayer =
       textLayerDiv ? new TextLayerBuilder({
         textLayerDiv: textLayerDiv,

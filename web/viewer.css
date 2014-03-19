@@ -1616,6 +1616,40 @@ html[dir='rtl'] #documentPropertiesContainer .row > * {
   display: none;
 }
 
+.instantFeedbackQuestion {
+  padding:5px;
+  color:black;
+  font-size:11px;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.red {
+  background:#F9AD81;
+  border:1px solid #F7977A;
+}
+
+.green {
+  background:#ACD372;
+  border:1px solid #7CC576;
+}
+
+.blue {
+  background:#7EA7D8;
+  border:1px solid #8493CA;
+}
+
+.yellow {
+  background:#FFF79A;
+  border:1px solid #FFF467;
+}
+
+.instantFeedbackLine {
+  position:relative;
+  height:1px;
+  width:30px;
+}
+
 @media screen and (min-resolution: 2dppx) {
   /* Rules for Retina screens */
   .toolbarButton::before {
