@@ -22,12 +22,14 @@ var SecondaryToolbar = {
   opened: false,
   previousContainerHeight: null,
   newContainerHeight: null,
+  instantFeedback: true,
 
   initialize: function secondaryToolbarInitialize(options) {
     this.toolbar = options.toolbar;
     this.presentationMode = options.presentationMode;
     this.documentProperties = options.documentProperties;
     this.buttonContainer = this.toolbar.firstElementChild;
+    this.instantFeedbackButton = options.instantFeedbackButton;
 
     // Define the toolbar buttons.
     this.toggleButton = options.toggleButton;
@@ -48,8 +50,8 @@ var SecondaryToolbar = {
       { element: this.toggleButton, handler: this.toggle },
       // All items within the secondary toolbar
       // (except for toggleHandTool, hand_tool.js is responsible for it):
-      { element: this.presentationModeButton,
-        handler: this.presentationModeClick },
+      { element: this.presentationModeButton, handler: this.presentationModeClick },
+      { element: this.instantFeedbackButton, handler: this.instantFeedbackButtonClick},
       { element: this.openFile, handler: this.openFileClick },
       { element: this.print, handler: this.printClick },
       { element: this.download, handler: this.downloadClick },
@@ -58,8 +60,7 @@ var SecondaryToolbar = {
       { element: this.lastPage, handler: this.lastPageClick },
       { element: this.pageRotateCw, handler: this.pageRotateCwClick },
       { element: this.pageRotateCcw, handler: this.pageRotateCcwClick },
-      { element: this.documentPropertiesButton,
-        handler: this.documentPropertiesClick }
+      { element: this.documentPropertiesButton, handler: this.documentPropertiesClick }
     ];
 
     for (var item in elements) {
@@ -73,6 +74,31 @@ var SecondaryToolbar = {
   // Event handling functions.
   presentationModeClick: function secondaryToolbarPresentationModeClick(evt) {
     this.presentationMode.request();
+    this.close();
+  },
+
+  instantFeedbackButtonClick: function secondaryToolbarInstantFeedbackButtonClick(evt){
+    var element = document.getElementById('questionsToggle');
+    if(!this.instantFeedback){
+      //element currently hiding questions
+      element.className = "toolbarButton";
+      this.instantFeedback = true;
+      var all = document.getElementsByClassName('instant');
+      for(var i = 0;i<all.length;i++){
+        all[i].style.display = "inline";
+      }
+      PDFView.instantFeedback = true;
+
+    }
+    else {
+      element.className = "toolbarButton toggled";
+      this.instantFeedback = false;
+      var all = document.getElementsByClassName('instant');
+      for(var i = 0;i<all.length;i++){
+        all[i].style.display = "none";
+      }
+      PDFView.instantFeedback = false;
+    }
     this.close();
   },
 

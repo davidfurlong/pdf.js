@@ -1616,6 +1616,10 @@ html[dir='rtl'] #documentPropertiesContainer .row > * {
   display: none;
 }
 
+.instant {
+  border-left:1px dashed #666;
+}
+
 .instantFeedbackQuestion {
   padding:5px;
   color:black;
@@ -1626,22 +1630,18 @@ html[dir='rtl'] #documentPropertiesContainer .row > * {
 
 .red {
   background:#F9AD81;
-  border:1px solid #F7977A;
 }
 
 .green {
   background:#ACD372;
-  border:1px solid #7CC576;
 }
 
 .blue {
   background:#7EA7D8;
-  border:1px solid #8493CA;
 }
 
 .yellow {
   background:#FFF79A;
-  border:1px solid #FFF467;
 }
 
 .instantFeedbackLine {

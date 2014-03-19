@@ -124,7 +124,7 @@ var PDFView = {
   isViewerEmbedded: (window.parent !== window),
   idleTimeout: null,
   currentPosition: null,
-  instantFeedback: true, 
+  instantFeedback: true,
 
   // called once when the document is loaded
   initialize: function pdfViewInitialize() {
@@ -162,6 +162,7 @@ var PDFView = {
     });
 
     SecondaryToolbar.initialize({
+      instantFeedbackButton: document.getElementById('questionsToggle'),
       toolbar: document.getElementById('secondaryToolbar'),
       presentationMode: PresentationMode,
       toggleButton: document.getElementById('secondaryToolbarToggle'),

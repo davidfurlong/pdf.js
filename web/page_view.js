@@ -47,7 +47,7 @@ var PageView = function pageView(container, id, scale,
   div.className = 'page';
   div.style.width = Math.floor(this.viewport.width) + 'px';
   div.style.height = Math.floor(this.viewport.height*(6/7)) + 'px';
-  console.log('pagecontainer'+Math.floor(this.viewport.width));
+  console.log(div.style.height);
   container.appendChild(anchor);
   container.appendChild(div);
 
@@ -77,7 +77,7 @@ var PageView = function pageView(container, id, scale,
     this.renderingState = RenderingStates.INITIAL;
 
     div.style.width = Math.floor(this.viewport.width) + 'px';
-    div.style.height = Math.floor(this.viewport.height) + 'px';
+    div.style.height = Math.floor(this.viewport.height*(6/7)) + 'px';
 
     var childNodes = div.childNodes;
     for (var i = div.childNodes.length - 1; i >= 0; i--) {
@@ -502,10 +502,17 @@ var PageView = function pageView(container, id, scale,
     divinstant.className = 'instant';
     divinstant.style.styleFloat = 'right';
     divinstant.style.cssFloat = 'right';
+    console.log(outputScale.sy+"scale");
+    //divinstant.style.fontSize = '';
     console.log('divinstant'+canvas.width*(1/7));
     divinstant.style.width = canvas.width*(1/7)-4 + 'px';
-    divinstant.style.height = canvas.height*(6/7) + 'px';
+    divinstant.style.height = div.style.height + 'px';
+    if(PDFView.instantFeedback)
+      divinstant.style.display = "inline";
+    else 
+      divinstant.style.display = "none";
     div.appendChild(divinstant);
+
 
     rerenderQuestions();
  
