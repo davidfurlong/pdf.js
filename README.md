@@ -1,4 +1,7 @@
-# PDF.js
+# PDFLecturerView.js
+
+This is an adaptation of pdf.js to allow lecturers to receive questions directly on their slides.
+Currently still buggy
 
 PDF.js is Portable Document Format (PDF) viewer that is built with HTML5.
 
