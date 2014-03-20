@@ -297,7 +297,7 @@ var PDFView = {
         case 'page-height':
           scale = pageHeightScale;
           break;
-        case 'page-fit':
+        case 'page-fit'://#DAVID
           scale = Math.min(pageWidthScale, pageHeightScale);
           break;
         case 'auto':
@@ -308,7 +308,7 @@ var PDFView = {
                         '\' is an unknown zoom value.');
           return;
       }
-      this._setScaleUpdatePages(scale, value, resetAutoSettings, noScroll);
+      this._setScaleUpdatePages(scale*(7/6), value, resetAutoSettings, noScroll);
 
       selectScaleOption(value);
     }
@@ -918,7 +918,7 @@ var PDFView = {
     firstPagePromise.then(function(pdfPage) {
       var viewport = pdfPage.getViewport((scale || 1.0) * CSS_UNITS);
       for (var pageNum = 1; pageNum <= pagesCount; ++pageNum) {
-        var viewportClone = viewport.clone();
+        var viewportClone = viewport.clone(); // #DAVID
         var pageView = new PageView(container, pageNum, scale,
                                     self.navigateTo.bind(self),
                                     viewportClone);
@@ -1885,7 +1885,6 @@ function webViewerLoad(evt) {
 document.addEventListener('DOMContentLoaded', webViewerLoad, true);
 
 function updateViewarea() {
-
   if (!PDFView.initialized) {
     return;
   }
@@ -1933,6 +1932,7 @@ function updateViewarea() {
   pdfOpenParams += '&zoom=' + normalizedScaleValue;
   var currentPage = PDFView.pages[pageNumber - 1];
   var container = PDFView.container;
+  // #DAVID #1
   var topLeft = currentPage.getPagePoint((container.scrollLeft - firstPage.x),
                                          (container.scrollTop - firstPage.y));
   var intLeft = Math.round(topLeft[0]);
@@ -2074,6 +2074,7 @@ window.addEventListener('scalechange', function scalechange(evt) {
   updateViewarea();
 }, true);
 
+//#DAVID #1
 window.addEventListener('pagechange', function pagechange(evt) {
   var page = evt.pageNumber;
   if (PDFView.previousPageNumber !== page) {

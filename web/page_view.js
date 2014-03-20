@@ -334,12 +334,14 @@ var PageView = function pageView(container, id, scale,
   };
 
   this.scrollIntoView = function pageViewScrollIntoView(dest) {
+
     if (PresentationMode.active) {
       if (PDFView.page !== this.id) {
         // Avoid breaking PDFView.getVisiblePages in presentation mode.
         PDFView.page = this.id;
         return;
       }
+      //#DAVID IN HERE
       dest = null;
       PDFView.setScale(PDFView.currentScaleValue, true, true);
     }
