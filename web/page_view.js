@@ -45,12 +45,24 @@ var PageView = function pageView(container, id, scale,
   var div = this.el = document.createElement('div');
   div.id = 'pageContainer' + this.id;
   div.className = 'page';
+  div.setAttribute('pagenr',this.id)
   div.style.width = Math.floor(this.viewport.width) + 'px';
   div.style.height = Math.floor(this.viewport.height*(6/7)) + 'px';
   console.log(div.style.height);
   container.appendChild(anchor);
   container.appendChild(div);
 
+ function writeQuestion(id,page,question,startposition,endposition,numasked,colorscheme){
+  // Socketio pls?
+ }
+
+  div.onclick = function(e){
+    var resp = prompt('','Question to ask')
+
+    if(resp){
+      writeQuestion(0,div.getAttribute('pagenr'),resp,e.clientX/parseInt(div.style.height,10),0,0,null)
+    }
+  }
 
   this.setPdfPage = function pageViewSetPdfPage(pdfPage) {
     this.pdfPage = pdfPage;
