@@ -52,15 +52,46 @@ var PageView = function pageView(container, id, scale,
   container.appendChild(anchor);
   container.appendChild(div);
 
- function writeQuestion(id,page,question,startposition,endposition,numasked,colorscheme){
-  // Socketio pls?
- }
+ // function writeQuestion(id,page,question,startposition,endposition,numasked,colorscheme){
+ //  // Socketio pls?
+ // }
 
   div.onclick = function(e){
     var resp = prompt('','Question to ask')
+    function getPos(el) {
+        // yay readability
+        for (var lx=0, ly=0;
+             el != null;
+             lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
+        return {x: lx,y: ly};
+    }
+    function getNumericStyleProperty(style, prop){
+        return parseInt(style.getPropertyValue(prop),10) ;
+    }
 
+    function element_position(e) {
+        var x = 0, y = 0;
+        var inner = true ;
+        do {
+            x += e.offsetLeft;
+            y += e.offsetTop;
+            var style = getComputedStyle(e,null) ;
+            var borderTop = getNumericStyleProperty(style,"border-top-width") ;
+            var borderLeft = getNumericStyleProperty(style,"border-left-width") ;
+            y += borderTop ;
+            x += borderLeft ;
+            if (inner){
+              var paddingTop = getNumericStyleProperty(style,"padding-top") ;
+              var paddingLeft = getNumericStyleProperty(style,"padding-left") ;
+              y += paddingTop ;
+              x += paddingLeft ;
+            }
+            inner = false ;
+        } while (e = e.offsetParent);
+        return { x: x, y: y };
+    }
     if(resp){
-      writeQuestion(0,div.getAttribute('pagenr'),resp,e.clientX/parseInt(div.style.height,10),0,0,null)
+      writeQuestion(0,div.getAttribute('pagenr'),resp,(PDFView.pageViewScroll.lastY+e.pageY-41-((div.getAttribute('pagenr')-1)*(parseInt(div.style.height,10)+40)))/parseInt(div.style.height,10),0,0,null)
     }
   }
 
@@ -520,7 +551,8 @@ var PageView = function pageView(container, id, scale,
     //divinstant.style.fontSize = '';
     console.log('divinstant'+canvas.width*(1/7));
     divinstant.style.width = canvas.width*(1/7)-4 + 'px';
-    divinstant.style.height = div.style.height + 'px';
+    divinstant.style.height = div.style.height;
+    console.log('THIS'+div.style.height)
     if(PDFView.instantFeedback)
       divinstant.style.display = "inline";
     else 

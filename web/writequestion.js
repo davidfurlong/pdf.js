@@ -16,6 +16,7 @@ function writeQuestion(id,page,question,startposition,endposition,numasked,color
 	newQ.innerHTML = question;
 	newQ.style.position = "relative";
 	var x = parseInt(ifbar.style.height,10)*startposition;
+	console.log(ifbar)
 	newQ.style.top = x+"px";
 	newQ.style.left = "0px";
 
